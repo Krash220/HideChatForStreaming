@@ -1,0 +1,56 @@
+plugins {
+    id 'fabric-loom' version '1.1-SNAPSHOT' apply false
+    // id 'net.minecraftforge.gradle' version '5.1.+' apply false
+}
+
+allprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'eclipse'
+    // apply plugin: 'idea'
+
+    archivesBaseName = 'output'
+
+    java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}
+
+dependencies {
+    // runtimeOnly project(':HideChat-FabricLoader')
+    // runtimeOnly project(':HideChat-ForgeLoader')
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "Hide Chat For Streaming",
+                "Specification-Vendor"    : "${project.mod_version}",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : "${project.mod_name}",
+                "Implementation-Version"  : "${project.mod_version}",
+                "Implementation-Vendor"   : "Krash220",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+task mergeAll(type: JavaExec) {
+    classpath = project(':HideChat-Merge').sourceSets.main.runtimeClasspath
+
+    main = 'MergeJar'
+    args = ["${project.mod_name}-${project.mod_version}"]
+
+    project.childProjects.each {
+        args += it.value.projectDir
+    }
+}
+
+task buildMod(group: 'Build', dependsOn: [':assemble']) {}
+
+project.childProjects.each {
+    buildMod.dependsOn += ":${it.key}:assemble"
+}
+
+buildMod.finalizedBy(':mergeAll')

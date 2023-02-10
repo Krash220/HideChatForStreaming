@@ -1,0 +1,53 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        // maven {
+        //     name = 'Forge'
+        //     url = 'https://maven.minecraftforge.net/'
+        // }
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
+            metadataSources {
+                artifact()
+            }
+        }
+    }
+}
+
+// Loader
+include 'fabric-loader'
+include 'forge-loader'
+include 'forge-loader-compatibility'
+include 'forge-legacy-loader'
+
+// Forge References
+// include 'forge-1.7.10'
+// include 'forge-1.12.2'
+// include 'forge-1.16.5'
+// include 'forge-1.19.3'
+
+// mergeJar
+include 'mergeJar'
+
+rootProject.name='HideChatForStreaming'
+project(':fabric-loader').name='HideChat-FabricLoader'
+project(':forge-loader').name='HideChat-ForgeLoader'
+project(':forge-loader-compatibility').name='HideChat-ForgeLoader-Compatibility'
+project(':forge-legacy-loader').name='HideChat-ForgeLegacyLoader'
+// project(':forge-1.7.10').name='HideChat-Forge-1.7.10'
+// project(':forge-1.12.2').name='HideChat-Forge-1.12.2'
+// project(':forge-1.16.5').name='HideChat-Forge-1.16.5'
+// project(':forge-1.19.3').name='HideChat-Forge-1.19.3'
+project(':mergeJar').name='HideChat-Merge'

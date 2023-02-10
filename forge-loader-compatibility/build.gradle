@@ -1,0 +1,9 @@
+dependencies {
+    implementation rootProject
+
+    compileOnly 'net.minecraftforge:forge:1.12.2-14.23.5.2860:universal@jar'
+}
+
+jar {
+   exclude 'net/**'
+}

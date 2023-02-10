@@ -1,0 +1,11 @@
+modLoader="javafml"
+loaderVersion="[0,)"
+license="MIT"
+[[mods]]
+modId="hidechat4s"
+version="1.0"
+displayName="Hide Chat For Streaming"
+authors="Krash220"
+description='''
+在推流软件中捕获 “【直播模式】Minecraft” 窗口即可。
+'''

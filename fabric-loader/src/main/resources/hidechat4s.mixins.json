@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "krash220.hidechat.entrypoint.fabric",
+	"compatibilityLevel": "JAVA_8",
+	"client": [
+		"MixinMinecraftClient",
+		"MixinToastManager",
+		"MixinInGameHud"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

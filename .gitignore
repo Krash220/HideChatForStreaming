@@ -1,0 +1,17 @@
+/gradle/wrapper/gradle-wrapper.jar
+/.gradle
+*/.gradle
+/.settings
+*/.settings
+/build
+*/build
+/run
+*/run
+/dists
+
+/.classpath
+*/.classpath
+/.project
+*/.project
+/bin
+*/bin
