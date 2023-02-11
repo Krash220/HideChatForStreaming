@@ -2,7 +2,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.jar.JarEntry;
@@ -11,8 +10,6 @@ import java.util.jar.JarOutputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.Streams;
-import com.google.gson.stream.JsonWriter;
 
 public class MergeJar {
 
@@ -21,10 +18,10 @@ public class MergeJar {
 
         outputDir.mkdir();
 
-        File output = new File(outputDir, args[0] + ".jar");
+        File output = new File(outputDir, "${MOD_NAME}-${MOD_VERSION}.jar");
         JarOutputStream stream = new JarOutputStream(new FileOutputStream(output));
 
-        for (int i = 1; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             File jar = new File(new File(args[i]), "build/libs/output.jar");
 
             if (jar.exists()) {

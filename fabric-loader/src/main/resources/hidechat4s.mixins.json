@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "krash220.hidechat.entrypoint.fabric",
+	"package": "krash220.hidechat4s.launcher.entrypoint.fabric",
 	"compatibilityLevel": "JAVA_8",
 	"client": [
 		"MixinMinecraftClient",

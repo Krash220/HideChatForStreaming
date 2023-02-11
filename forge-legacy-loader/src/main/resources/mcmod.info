@@ -1,0 +1,8 @@
+[
+    {
+        "modid": "${MOD_ID}",
+        "name": "${MOD_TITLE}",
+        "description": "在推流软件中捕获 “【直播模式】Minecraft” 窗口即可。",
+        "version": "${MOD_VERSION}"
+    }
+]

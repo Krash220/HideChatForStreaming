@@ -15,32 +15,64 @@ allprojects {
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
+
+    task processSources(type: Copy) {
+        from project.sourceSets.main.java.srcDirs[0]
+        into "$buildDir/sources"
+
+        expand(
+            MOD_ID: rootProject.mod_id,
+            MOD_NAME: rootProject.mod_name,
+            MOD_TITLE: rootProject.mod_title,
+            MOD_AUTHOR: rootProject.mod_author,
+            MOD_VERSION: rootProject.mod_version
+        )
+
+        doLast {
+            project.sourceSets.main.java.srcDirs = ["$buildDir/sources"]
+        }
+    }
+
+    compileJava.dependsOn += 'processSources'
+
+    processResources {
+        expand(
+            MOD_ID: rootProject.mod_id,
+            MOD_NAME: rootProject.mod_name,
+            MOD_TITLE: rootProject.mod_title,
+            MOD_AUTHOR: rootProject.mod_author,
+            MOD_VERSION: rootProject.mod_version
+        )
+    }
 }
 
 dependencies {
-    // runtimeOnly project(':HideChat-FabricLoader')
-    // runtimeOnly project(':HideChat-ForgeLoader')
+    // runtimeOnly project(':HideChat4S-FabricLoader')
+    // runtimeOnly project(':HideChat4S-ForgeLoader')
+
+    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.4-nightly-20150209'
+    implementation group: 'org.lwjgl', name: 'lwjgl-glfw', version: '3.3.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-beta9'
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "Hide Chat For Streaming",
-                "Specification-Vendor"    : "${project.mod_version}",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : "${project.mod_name}",
-                "Implementation-Version"  : "${project.mod_version}",
-                "Implementation-Vendor"   : "Krash220",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                'Specification-Title'     : "${project.mod_title}",
+                'Specification-Vendor'    : "${project.mod_version}",
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : "${project.mod_name}",
+                'Implementation-Version'  : "${project.mod_version}",
+                'Implementation-Vendor'   : "${project.mod_author}",
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd HH:mm:ss 'UTC'Z")
         ])
     }
 }
 
 task mergeAll(type: JavaExec) {
-    classpath = project(':HideChat-Merge').sourceSets.main.runtimeClasspath
+    classpath = project(':HideChat4S-Merge').sourceSets.main.runtimeClasspath
 
     main = 'MergeJar'
-    args = ["${project.mod_name}-${project.mod_version}"]
 
     project.childProjects.each {
         args += it.value.projectDir

@@ -1,11 +1,11 @@
 {
 	"schemaVersion": 1,
-	"id": "hidechat4s",
-	"version": "1.0",
-	"name": "Hide Chat For Streaming",
+	"id": "${MOD_ID}",
+	"version": "${MOD_VERSION}",
+	"name": "${MOD_TITLE}",
 	"description": "在推流软件中捕获 “【直播模式】Minecraft” 窗口即可。",
 	"authors": [
-		"Krash220"
+		"${MOD_AUTHOR}"
 	],
 	"contact": {
 		"sources": "https://github.com/Krash220/HideChatForStreaming"
@@ -13,7 +13,7 @@
 	"license": "MIT",
 	"entrypoints": {
 		"main": [
-			"krash220.hidechat.entrypoint.FabricLoader"
+			"krash220.hidechat4s.launcher.entrypoint.FabricLoader"
 		]
 	},
 	"mixins": [

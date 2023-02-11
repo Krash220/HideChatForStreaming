@@ -23,6 +23,13 @@ dependencyResolutionManagement {
                 artifact()
             }
         }
+        maven {
+            name = 'Minecraft'
+            url = 'https://libraries.minecraft.net/'
+            metadataSources {
+                artifact()
+            }
+        }
     }
 }
 
@@ -42,12 +49,12 @@ include 'forge-legacy-loader'
 include 'mergeJar'
 
 rootProject.name='HideChatForStreaming'
-project(':fabric-loader').name='HideChat-FabricLoader'
-project(':forge-loader').name='HideChat-ForgeLoader'
-project(':forge-loader-compatibility').name='HideChat-ForgeLoader-Compatibility'
-project(':forge-legacy-loader').name='HideChat-ForgeLegacyLoader'
-// project(':forge-1.7.10').name='HideChat-Forge-1.7.10'
-// project(':forge-1.12.2').name='HideChat-Forge-1.12.2'
-// project(':forge-1.16.5').name='HideChat-Forge-1.16.5'
-// project(':forge-1.19.3').name='HideChat-Forge-1.19.3'
-project(':mergeJar').name='HideChat-Merge'
+project(':fabric-loader').name='HideChat4S-FabricLoader'
+project(':forge-loader').name='HideChat4S-ForgeLoader'
+project(':forge-loader-compatibility').name='HideChat4S-ForgeLoader-Compatibility'
+project(':forge-legacy-loader').name='HideChat4S-ForgeLegacyLoader'
+// project(':forge-1.7.10').name='HideChat4S-Forge-1.7.10'
+// project(':forge-1.12.2').name='HideChat4S-Forge-1.12.2'
+// project(':forge-1.16.5').name='HideChat4S-Forge-1.16.5'
+// project(':forge-1.19.3').name='HideChat4S-Forge-1.19.3'
+project(':mergeJar').name='HideChat4S-Merge'
