@@ -1,12 +1,18 @@
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
+
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.ClassNode;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,30 +66,33 @@ public class MergeJar {
 
             InputStream stream = in.getInputStream(entry);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-            byte[] b = new byte[4096];
-
-            while (true) {
-                int i = stream.read(b);
-                if (i <= 0)
-                    break;
-                bos.write(b, 0, i);
-            }
-
-            if (entry.getName().endsWith("mixins.json")) {
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Map map = gson.fromJson(bos.toString("UTF-8"), Map.class);
-
-                map.remove("refmap");
-
-                String json = gson.toJson(map);
-
-                bos.reset();
-                bos.write(json.getBytes("UTF-8"));
-            }
             
-            System.out.println(" + " + entry.getName());
+            if (entry.getName().endsWith(".class")) {
+                bos.write(downlevel(stream));
+            } else {
+                byte[] b = new byte[4096];
 
+                while (true) {
+                    int i = stream.read(b);
+                    if (i <= 0)
+                        break;
+                    bos.write(b, 0, i);
+                }
+
+                if (entry.getName().endsWith("mixins.json")) {
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    Map map = gson.fromJson(bos.toString("UTF-8"), Map.class);
+
+                    map.remove("refmap");
+
+                    String json = gson.toJson(map);
+
+                    bos.reset();
+                    bos.write(json.getBytes("UTF-8"));
+                }
+            }
+
+            System.out.println(" + " + entry.getName());
             entry = new JarEntry(entry.getName());
 
             out.putNextEntry(entry);
@@ -91,5 +100,20 @@ public class MergeJar {
         }
 
         in.close();
+    }
+
+    private static byte[] downlevel(InputStream is) throws IOException {
+        ClassReader cr = new ClassReader(is);
+        ClassNode node = new ClassNode();
+
+        cr.accept(node, 0);
+
+        node.version = Opcodes.V1_8;
+
+        ClassWriter cw = new ClassWriter(0);
+
+        node.accept(cw);
+        
+        return cw.toByteArray();
     }
 }

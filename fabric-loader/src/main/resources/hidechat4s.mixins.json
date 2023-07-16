@@ -4,8 +4,8 @@
 	"compatibilityLevel": "JAVA_8",
 	"client": [
 		"MixinMinecraftClient",
-		"MixinToastManager",
-		"MixinInGameHud"
+		"MixinInGameHud",
+		"MixinChatHud"
 	],
 	"injectors": {
 		"defaultRequire": 1

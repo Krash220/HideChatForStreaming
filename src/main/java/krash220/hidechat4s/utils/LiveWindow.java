@@ -19,7 +19,7 @@ public class LiveWindow extends Thread {
         instance.start();
     }
 
-    public static void check(int x, int y, int width, int height) {
+    public static boolean checkWindow(int x, int y, int width, int height) {
         if (instance.x != x || instance.y != y) {
             instance.x = x;
             instance.y = y;
@@ -31,10 +31,16 @@ public class LiveWindow extends Thread {
             instance.height = height;
             instance.resize = true;
         }
+
+        return instance.resize;
     }
 
     public static int[] getPixelBuffer() {
         return instance.data;
+    }
+
+    public static void updateDisplay() {
+        instance.draw = true;
     }
 
     private Frame parent;

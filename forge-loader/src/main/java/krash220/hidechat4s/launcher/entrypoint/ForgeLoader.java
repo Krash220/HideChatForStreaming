@@ -1,16 +1,16 @@
 package krash220.hidechat4s.launcher.entrypoint;
 
 import krash220.hidechat4s.launcher.GameHandler;
-import krash220.hidechat4s.launcher.Platform;
 import krash220.hidechat4s.launcher.entrypoint.forge.CompatibilityMode;
+import krash220.hidechat4s.launcher.entrypoint.forge.GuiEventHandler11300;
 import krash220.hidechat4s.launcher.entrypoint.forge.GuiEventHandler11605;
+import krash220.hidechat4s.launcher.entrypoint.forge.GuiEventHandler11700;
 import krash220.hidechat4s.launcher.entrypoint.forge.GuiEventHandler11903;
 import krash220.hidechat4s.launcher.entrypoint.forge.RenderTickHandler11302;
 import krash220.hidechat4s.launcher.entrypoint.forge.RenderTickHandler11605;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.versions.mcp.MCPVersion;
 
 @Mod(value = "${MOD_ID}", modid = "${MOD_ID}")
 public class ForgeLoader {
@@ -20,7 +20,7 @@ public class ForgeLoader {
             // <= 1.12
             CompatibilityMode.init();
         } else {
-            GameHandler.onModInit(Platform.FORGE, MCPVersion.getMCVersion());
+            GameHandler.onModInit();
 
             IEventBus bus = MinecraftForge.EVENT_BUS;
 
@@ -32,12 +32,17 @@ public class ForgeLoader {
                 bus.register(new RenderTickHandler11605());
             }
 
-            if (checkClass("net.minecraftforge.client.event.CustomizeGuiOverlayEvent")) {
-                // 1.19
+            if (checkClass("net.minecraftforge.client.event.RenderGuiOverlayEvent")) {
+                // >=1.19.3
                 bus.register(new GuiEventHandler11903());
-            } else {
-                // 1.13-1.18
+            } else if (checkClass("net.minecraft.client.gui.screens.ChatScreen")) {
+                // 1.17-1.19.2
+                bus.register(new GuiEventHandler11700());
+            } else if (checkClass("net.minecraft.client.gui.screen.ChatScreen")) {
+                // 1.14-1.16.5
                 bus.register(new GuiEventHandler11605());
+            } else {
+                bus.register(new GuiEventHandler11300());
             }
         }
     }

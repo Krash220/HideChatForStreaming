@@ -1,5 +1,6 @@
 dependencies {
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+    implementation group: 'org.ow2.asm', name: 'asm-tree', version: '9.4'
 }
 
 jar.enabled = false

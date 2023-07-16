@@ -1,0 +1,11 @@
+apply plugin: 'net.minecraftforge.gradle'
+
+minecraft {
+    mappings channel: project.mapping_channel, version: project.mapping_version
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${project.forge_version}"
+}
+
+jar.finalizedBy('reobfJar')

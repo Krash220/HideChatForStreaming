@@ -1,8 +1,14 @@
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+tasks.withType(JavaCompile) {
+    sourceCompatibility = 16
+    targetCompatibility = 16
+}
 
 dependencies {
     implementation rootProject
     implementation project(':HideChat4S-ForgeLoader-Compatibility')
+    implementation project(':HideChat4S-ForgeMCPOld')
+    implementation project(':HideChat4S-ForgeMCP')
+    implementation project(':HideChat4S-ForgeOfficial')
 
     implementation 'net.minecraftforge:eventbus:4.0.0'
     implementation 'net.minecraftforge:forge:1.16.5-36.2.39:universal@jar'

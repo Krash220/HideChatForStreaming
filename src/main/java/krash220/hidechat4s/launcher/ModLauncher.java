@@ -9,7 +9,7 @@ import java.util.ServiceLoader;
 public class ModLauncher {
 
     public static enum Event {
-        RENDER_START, RENDER_END, RENDER_CHAT_START, RENDER_CHAT_END;
+        RENDER_START, RENDER_END, RENDER_CHAT_START;
     }
 
     private static Map<Event, List<Runnable>> bus = new HashMap<>();
@@ -20,13 +20,11 @@ public class ModLauncher {
         }
     }
 
-    static void launch(Platform loader, String mcVersion) {
-        
-
+    static void launch() {
         ServiceLoader<IMod> services = ServiceLoader.load(IMod.class);
 
         services.forEach(mod -> {
-            mod.init(loader, mcVersion);
+            mod.init();
         });
     }
 

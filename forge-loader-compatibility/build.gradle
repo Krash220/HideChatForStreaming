@@ -1,11 +1,8 @@
 dependencies {
     implementation rootProject
+    implementation project(':HideChat4S-ForgeMCPOld')
 
     implementation 'net.minecraftforge:forge:1.12.2-14.23.5.2860:universal@jar'
-}
-
-tasks.withType(JavaCompile) {
-    options.incremental = false
 }
 
 jar {

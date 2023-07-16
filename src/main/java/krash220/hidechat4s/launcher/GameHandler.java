@@ -3,8 +3,8 @@ package krash220.hidechat4s.launcher;
 import krash220.hidechat4s.launcher.ModLauncher.Event;
 
 public class GameHandler {
-    public static void onModInit(Platform loader, String mcVersion) {
-        ModLauncher.launch(loader, mcVersion);
+    public static void onModInit() {
+        ModLauncher.launch();
     }
 
     public static void onRenderTickStart() {
@@ -17,9 +17,5 @@ public class GameHandler {
 
     public static void onChatRenderStart() {
         ModLauncher.post(Event.RENDER_CHAT_START);
-    }
-
-    public static void onChatRenderEnd() {
-        ModLauncher.post(Event.RENDER_CHAT_END);
     }
 }

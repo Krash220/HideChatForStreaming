@@ -7,7 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-public class OpenGLHelper {
+public class LWJGLHelper {
     public static final boolean isGLFW;
 
     private static int[] windowInfo = new int[4];
@@ -64,5 +64,9 @@ public class OpenGLHelper {
         }
 
         return out;
+    }
+    
+    public static int createShader() {
+        return 0;
     }
 }
