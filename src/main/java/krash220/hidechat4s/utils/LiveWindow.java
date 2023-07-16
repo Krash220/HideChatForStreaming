@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -14,6 +15,7 @@ public class LiveWindow extends Thread {
 
     public static void init() {
         System.setProperty("java.awt.headless", "false");
+        GraphicsEnvironment.isHeadless();
 
         instance = new LiveWindow();
         instance.start();
