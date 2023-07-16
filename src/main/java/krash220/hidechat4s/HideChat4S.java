@@ -105,6 +105,11 @@ public class HideChat4S implements IMod {
     }
 
     private void swap() {
+        if (!LWJGLHelper.isFocused()) {
+            this.captured = false;
+            return;
+        }
+
         this.front = !this.front;
         this.captured = true;
     }

@@ -65,8 +65,14 @@ public class LWJGLHelper {
 
         return out;
     }
-    
-    public static int createShader() {
-        return 0;
+
+    public static boolean isFocused() {
+        if (isGLFW) {
+            long window = GLFW.glfwGetCurrentContext();
+
+            return GLFW.glfwGetWindowAttrib(window, GLFW.GLFW_FOCUSED) != 0;
+        } else {
+            return Display.isActive();
+        }
     }
 }
